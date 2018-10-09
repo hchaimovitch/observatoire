@@ -1,14 +1,15 @@
 {
-  "main.css": "/jeu/static/css/main.05079912.chunk.css",
-  "main.js": "/jeu/static/js/main.7796f25f.chunk.js",
-  "main.js.map": "/jeu/static/js/main.7796f25f.chunk.js.map",
-  "static/js/1.6105a37c.chunk.js": "/jeu/static/js/1.6105a37c.chunk.js",
-  "static/js/1.6105a37c.chunk.js.map": "/jeu/static/js/1.6105a37c.chunk.js.map",
+  "main.css": "/jeu/static/css/main.0df78a7d.chunk.css",
+  "main.js": "/jeu/static/js/main.fbc189a6.chunk.js",
+  "main.js.map": "/jeu/static/js/main.fbc189a6.chunk.js.map",
+  "static/js/1.4317bafd.chunk.js": "/jeu/static/js/1.4317bafd.chunk.js",
+  "static/js/1.4317bafd.chunk.js.map": "/jeu/static/js/1.4317bafd.chunk.js.map",
   "runtime~main.js": "/jeu/static/js/runtime~main.05a47949.js",
   "runtime~main.js.map": "/jeu/static/js/runtime~main.05a47949.js.map",
-  "static/media/logo.svg": "/jeu/static/media/logo.5d5d9eef.svg",
-  "static/css/main.05079912.chunk.css.map": "/jeu/static/css/main.05079912.chunk.css.map",
+  "static/css/main.0df78a7d.chunk.css.map": "/jeu/static/css/main.0df78a7d.chunk.css.map",
+  "static/media/wordcloud.svg": "/jeu/static/media/wordcloud.3273a235.svg",
+  "static/media/wdscroll_bas.svg": "/jeu/static/media/wdscroll_bas.94029a38.svg",
   "index.html": "/jeu/index.html",
-  "precache-manifest.791fd43489ef9103c1d1b425b114f501.js": "/jeu/precache-manifest.791fd43489ef9103c1d1b425b114f501.js",
+  "precache-manifest.f271c23bbe65adec78fad9f9df54deba.js": "/jeu/precache-manifest.f271c23bbe65adec78fad9f9df54deba.js",
   "service-worker.js": "/jeu/service-worker.js"
 }
