@@ -2,7 +2,7 @@
   "name": "jeu",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://xofni.github.io/jeu",
+  "homepage": "https://xofni.github.io/jeu",
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -26,6 +26,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "datamaps": "^0.5.9",
     "gh-pages": "^2.0.1"
   }
 }
