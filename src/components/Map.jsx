@@ -64,8 +64,8 @@ class Map extends React.Component {
                     when: '08.09.2018',
                     where: 'France',
                     who: 'Aymeric d\'Afflon (Ulule.com)',
-                    url: 'https://yt3.ggpht.com/a-/AN66SAxEa_OAqIjYUw-XzSsYl81dZnsG74_Cz4s1Iw=s288-mo-c-c0xffffffff-rj-k-no',
-                    img: 'https://d2homsd77vx6d2.cloudfront.net/cache/d/b/dbfbc6f0fff6af8c215f2a831095f507.jpg',
+                    url: 'https://www.youtube.com/watch?v=ozpDxrf9fI0',
+                    img: 'https://img.ulule.com/display/9a38694139805aaf5aaa3e396b61defe2980a4b6/thumbnail/640x360/presales/3/3/8/75833/fnews_banniere_ulule_big.yrFd8V3mLbZW.jpg?upscale=1',
                     what: 'Le FUN MODE : c\'est notre version originale, dans laquelle vous pouvez annoncer les News les plus farfelues. On se concentre sur l\'impro collective, l\'écoute et l\'humour. Le ou la Rédac Chef joue et peut aussi intervenir pour réguler la partie.Le SERIOUS GAME MODE : dans lequel le ou la Rédacteur en Chef décide du niveau de qualité et de véracité des nouvelles annoncées par les présentateurs et présentatrices. Il peut refuser, réfuter, et exiger une reformulation plus précise, voire demander vos sources et les vérifier sans délai sur le web.'
                 }
             },

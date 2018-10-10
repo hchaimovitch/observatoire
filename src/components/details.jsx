@@ -11,13 +11,13 @@ function PopupTemplate(props){
         </div>
     }
     return <div className="details">
-                <p className="details-logo"><img src={props.data.logo} /></p>
+                <p className="details-logo"><img src={props.data.logo} alt=""/></p>
                 <p className="details-title">#{props.data.title}</p> 
                 <p>Type {props.data.type}</p>
                 <p>When {props.data.when}</p> 
                 <p>Where {props.data.where}</p>
                 <p>Who {props.data.who}</p>  
-                <p>URL <a href={props.data.url} target="_blank" >www</a></p>
+                <p>URL <a href={props.data.url} target="_blank" rel="">www</a></p>
                 <p><img src={props.data.img} alt="initiative" /></p>
                 <p>What {props.data.what}</p> 
             </div>

@@ -73,14 +73,13 @@ html {
     border: none;
     width: 3vw;
     height: 3vw;
-    background: url(/static/media/wdscroll_bas.94029a38.svg) no-repeat;
+    background: url("/static/media/wdscroll_bas.94029a38.svg") no-repeat;
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
     float: right;
     position: absolute;
     z-index: 9;
     margin-top: 25vw;
-    display: none;
 }
 
 .arrow-top {
@@ -93,5 +92,5 @@ html {
     position: absolute;
     z-index: 9;
     margin-left: 45vw;
-    margin-top: -3vw;
+    margin-top: -5vw;
 }
