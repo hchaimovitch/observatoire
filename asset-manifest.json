@@ -1,15 +1,15 @@
 {
-  "main.css": "/jeu/static/css/main.0df78a7d.chunk.css",
-  "main.js": "/jeu/static/js/main.fbc189a6.chunk.js",
-  "main.js.map": "/jeu/static/js/main.fbc189a6.chunk.js.map",
+  "main.css": "/jeu/static/css/main.86842623.chunk.css",
+  "main.js": "/jeu/static/js/main.d02bfcd0.chunk.js",
+  "main.js.map": "/jeu/static/js/main.d02bfcd0.chunk.js.map",
   "static/js/1.4317bafd.chunk.js": "/jeu/static/js/1.4317bafd.chunk.js",
   "static/js/1.4317bafd.chunk.js.map": "/jeu/static/js/1.4317bafd.chunk.js.map",
   "runtime~main.js": "/jeu/static/js/runtime~main.05a47949.js",
   "runtime~main.js.map": "/jeu/static/js/runtime~main.05a47949.js.map",
-  "static/css/main.0df78a7d.chunk.css.map": "/jeu/static/css/main.0df78a7d.chunk.css.map",
+  "static/css/main.86842623.chunk.css.map": "/jeu/static/css/main.86842623.chunk.css.map",
   "static/media/wordcloud.svg": "/jeu/static/media/wordcloud.3273a235.svg",
   "static/media/wdscroll_bas.svg": "/jeu/static/media/wdscroll_bas.94029a38.svg",
   "index.html": "/jeu/index.html",
-  "precache-manifest.f271c23bbe65adec78fad9f9df54deba.js": "/jeu/precache-manifest.f271c23bbe65adec78fad9f9df54deba.js",
+  "precache-manifest.7e76ff85a09b52ccff960fc3a8799130.js": "/jeu/precache-manifest.7e76ff85a09b52ccff960fc3a8799130.js",
   "service-worker.js": "/jeu/service-worker.js"
 }
