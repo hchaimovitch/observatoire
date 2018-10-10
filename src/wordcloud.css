@@ -1,3 +1,7 @@
+#body{
+    background-color: black;
+}
+
 .w3-animate-zoom {
     animation: animatezoom 2s;
     margin-top: 2rem;
@@ -5,47 +9,6 @@
 
 .legende {
     font-size: 0.5rem;
-}
-
-#container {
-   /* position: relative; 
-    width: 500px; 
-    height: 300px;
-    */
-    background-color: black;
-    float: left;
-    position: relative;
-    width: 70%;
-    margin-left: 20rem;
-    height: 550px;
-    margin-bottom: 5vw;
-}
-
-.details {
-    position: absolute;
-    padding: 1rem;
-    border-color:black;
-    font-size: 0.7rem;
-    width:22vw;
-    height: 550px;
-    background-color: #2A2B37;
-    color: white;
-}
-.details img {
-    width: 20vw;
-}
-.details-title {
-    font-size: 1rem;
-    text-decoration: underline;
-}
-
-.details-logo {
-    float: right;
-    width: 6vw;
-}
-
-.details-logo img{
-    width: 6vw;
 }
 
 html {
@@ -56,41 +19,10 @@ html {
   height: 600px;
   margin-bottom: 50vw;
 }
-  
-#section2 {
-  height: 600px;
-}
 
 .arrow {
     margin-top: -3rem;
     width: 3vw;
     height: 3vw;
     margin-left: 40rem; 
-}
-
-.arrow-right {
-    right: 0;
-    border: none;
-    width: 3vw;
-    height: 3vw;
-    background: url("/static/media/wdscroll_bas.94029a38.svg") no-repeat;
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    float: right;
-    position: absolute;
-    z-index: 9;
-    margin-top: 25vw;
-}
-
-.arrow-top {
-    border: none;
-    width: 3vw;
-    height: 3vw;
-    background: url(/static/media/wdscroll_bas.94029a38.svg) no-repeat;
-    -webkit-transform: rotate(-180deg);
-    transform: rotate(-180deg);
-    position: absolute;
-    z-index: 9;
-    margin-left: 45vw;
-    margin-top: -5vw;
 }

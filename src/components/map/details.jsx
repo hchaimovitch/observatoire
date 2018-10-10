@@ -4,13 +4,13 @@ import React        from 'react';
 
 function PopupTemplate(props){
     if (typeof(props.data.title) == 'undefined'){
-        return <div className="details">
+        return <div className="details" id="section-map">
             <p className="details-title">#Fake News dans le monde</p> 
             <p><img src="https://infographic.statista.com/normal/chartoftheday_14565_l_exposition_aux_fake_news_dans_le_monde_n.jpg" alt="initiative" /></p>
             <p>Et face à ce constat quelles iniciatives citoyennes?</p> 
         </div>
     }
-    return <div className="details">
+    return <div className="details" id="section-map">
                 <p className="details-logo"><img src={props.data.logo} alt=""/></p>
                 <p className="details-title">#{props.data.title}</p> 
                 <p>Type {props.data.type}</p>

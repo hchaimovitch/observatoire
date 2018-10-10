@@ -15,7 +15,7 @@ export default class CloudWord extends React.Component{
             <img src={wordcloud} alt="Intro"/>
         </div>
         <p className="legende"><a href="https://www.jasondavies.com/wordcloud/" target="_blank" rel="noopener noreferrer">https://www.jasondavies.com/wordcloud</a></p>
-        <p className="arrow"><a href="#container"><img src={wdscroll_bas} alt="arrow_down" /></a></p>
+        <p className="arrow"><a href="#section-map"><img src={wdscroll_bas} alt="arrow_down" /></a></p>
       </div>
     }
 }
