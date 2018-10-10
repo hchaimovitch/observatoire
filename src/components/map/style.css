@@ -33,21 +33,23 @@
      float: left;
      position: relative;
      width: 70%;
-     margin-left: 20rem;
+     margin-left: 350px;
      height: 550px;
      margin-bottom: 5vw;
      height: 600px;
  }
  
  .details {
-     position: absolute;
-     padding: 1rem;
-     border-color:black;
-     font-size: 0.7rem;
-     width:22vw;
-     height: 550px;
-     background-color: #2A2B37;
-     color: white;
+    position: absolute;
+    padding: 1vw;
+    border-color:black;
+    font-size: 0.7rem;
+    background-color: #2A2B37;
+    color: white;
+    height: 600px;
+    width: 350px;
+    padding-right:4vw;
+    margin-left: 3vw;
  }
  .details img {
      width: 100%;
@@ -67,8 +69,6 @@
  }
   
  #section-map {
-    height: 600px;
-    width: 300px;
-    padding-right:2vw;
+    
   }
   
