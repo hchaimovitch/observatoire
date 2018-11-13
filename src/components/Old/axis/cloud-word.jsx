@@ -1,7 +1,7 @@
-import '../wordcloud.css'
+import './wordcloud.css'
 import React       from 'react';
-import wordcloud from '../wordcloud.svg';
-import wdscroll_bas from '../wdscroll_bas.svg';
+import wordcloud from './wordcloud.svg';
+import wdscroll_bas from './wdscroll_bas.svg';
 
 export default class CloudWord extends React.Component{
     constructor(props) {

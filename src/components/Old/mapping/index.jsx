@@ -17,7 +17,7 @@ export default class Mapping extends React.Component{
           <div className="mapping-card">
             <img src={Topo} alt="Intro"/>
           
-          <div classname="mapping-legende">
+          <div className="mapping-legende">
             <span> Jeu-pro-utilisateur-ludique</span><br/>
             <span> Jeu-pro-utilisateur-pedagogique</span><br/>
             <span> Jeu-pro-colporteur</span><br/>

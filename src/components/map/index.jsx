@@ -1,259 +1,357 @@
 import './style.css';
 import React from 'react';
-import Datamap from '../../../node_modules/datamaps/dist/datamaps.world.min.js';
+import * as d3 from 'd3';
 import Details from './details.jsx';
 import wdscroll_bas from './wdscroll_bas.svg';
 
 class Map extends React.Component {
     constructor(props) {
-      super(props);
-      this.map = {};
-      this.state = { data: {} };
+        super(props);
+        this.map = {};
+        this.next = this.next.bind(this);
+        this.state = { data: []
+            , detailsByCountry: []
+            , indiceInit: 0
+            }
     }
     
     componentDidMount() {
-       var that = this;
-       this.map = new Datamap({
-        element: document.getElementById("container"),
-        // responsive: true,
-        geographyConfig: {
-            popupOnHover: false,
-            highlightOnHover: false,
-            borderColor: '#000000',
-            borderWidth: 0.5
-        },
-        fills: {
-            defaultFill: '#354D4A', 
-            RUS: '#E6BE8A',
-            gt50: '#E14972',
-            eq50: '#4647B9',
-            lt25: '#E6BE8A',
-            gt75: '#E6BE8A',
-            lt50: '#E6BE8A',
-            eq0: '#E6BE8A',
-            gt500: '#E6BE8A'
-        },
-        data: {
-            'NLD': { fillKey: 'eq50' },
-            'FRA': { fillKey: 'eq50' },
-            'USA': { fillKey: 'eq50' },
-            'SWE': { fillKey: 'eq50' },
-            'CAN': { fillKey: 'eq50' },
-            'CHE': { fillKey: 'eq50' },
-            'MEX': { fillKey: 'eq50' },
-          },
-        bubblesConfig: {
-            borderWidth: 0.5,
-            borderOpacity: 1,
-            borderColor: '#FFFFFF'
-        }
-        });
-        var dataIniti = JSON.stringify(getDataFromJson());
-        var response = {};
-        var responseJson = {};
-/*
-        function getDataFromJson() {
-            return fetch('./init-citoy.json')
-              .then((response) => response.json())
-              .then((responseJson) => {
-                return responseJson;
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          };
-*/
-        async function getDataFromJson() {
-            try {
-            let response = await fetch(
-                './init-citoy.json'
-            );
-            let responseJson = await response.json();
-            return responseJson;
-            } catch (error) {
-            console.error(error);
-            }
-        }
-        this.map.bubbles(
-            [{
-                name: "France",
-                radius: 30,
-                centered: "ESP",
-                country: "FRA",
-                initiative: 9,
-                nbJeu: 1,
-                fillKey: "FRA",
-                date: "2018-02-21",
-                content: {
-                    title: "Fake News Live",
-                    type: "Game",
-                    logo: "https://yt3.ggpht.com/a-/AN66SAxEa_OAqIjYUw-XzSsYl81dZnsG74_Cz4s1Iw=s288-mo-c-c0xffffffff-rj-k-no",
-                    when: "08.09.2018",
-                    where: "France",
-                    who: "Aymeric d\"Afflon (Ulule.com)",
-                    url: "https://www.youtube.com/watch?v=ozpDxrf9fI0",
-                    img: "https://img.ulule.com/display/9a38694139805aaf5aaa3e396b61defe2980a4b6/thumbnail/640x360/presales/3/3/8/75833/fnews_banniere_ulule_big.yrFd8V3mLbZW.jpg?upscale=1",
-                    what: "Le FUN MODE : c\"est notre version originale, dans laquelle vous pouvez annoncer les News les plus farfelues. On se concentre sur l\"impro collective, l\"écoute et l\"humour. Le ou la Rédac Chef joue et peut aussi intervenir pour réguler la partie.Le SERIOUS GAME MODE : dans lequel le ou la Rédacteur en Chef décide du niveau de qualité et de véracité des nouvelles annoncées par les présentateurs et présentatrices. Il peut refuser, réfuter, et exiger une reformulation plus précise, voire demander vos sources et les vérifier sans délai sur le web."
-                }
-            },
-            {
-            name: "Nederland",
-            radius: 10,
-            centered: "NLD",
-            country: "NLD",
-            initiative: 1,
-            nbJeu: 1,
-            fillKey: "NLD",
-            date: "2018-02-21",
-            content: {
-                title: "Bad News",
-                type: "Game",
-                logo: "https://www.getbadnews.com/wp-content/themes/getbadnews/static/assets/logo-mobile.png",
-                when: "21.02.2018",
-                where: "Pays-bas",
-                who: "Cambridge Social Decision",
-                url: "https://getbadnews.com/#intro",
-                img: "https://cdn.vox-cdn.com/thumbor/5vjZAYmPtADiwYFj-xzMt_np_aw=/0x0:1043x681/920x613/filters:focal(456x224:622x390)/cdn.vox-cdn.com/uploads/chorus_image/image/58772853/Screen_Shot_2018_02_21_at_2.16.22_PM.0.png",
-                what: "How does Bad News work? In this game you take on the role of fake news-monger. Drop all pretense of ethics and choose the path that builds your persona as an unscrupulous media magnate. But keep an eye on your ‘followers’ and ‘credibility’ meters. Your task is to get as many followers as you can while slowly building up fake credibility as a news site. But watch out: you lose if you tell obvious lies or disappoint your supporters! Bad News is a Twine-style game designed by members of the Cambridge Social Decision-Making Lab and media literacy group Drog."
-            }
-        },
-        {
-            name: "United-States",
-            radius: 35,
-            centered: "USA",
-            country: "USA",
-            initiative: 7,
-            nbJeu: 3,
-            fillKey: "USA",
-            date: "2018-02-21",
-            content: {
-                title: "Factitious Game",
-                type: "Game",
-                logo: "http://factitious.augamestudio.com/assets/icons/fact2018-errata/workmarkBig.svg",
-                when: "19.08.2018",
-                where: "Washington, USA",
-                who: "Game Lab University Washington, d\"après une idée originale de Maggie Farley Journaliste ",
-                url: "http://factitious.augamestudio.com/#/",
-                img: "https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Fs.newsweek.com%2Fsites%2Fwww.newsweek.com%2Ffiles%2Fstyles%2Fembed-lg%2Fpublic%2F2017%2F07%2F04%2Ffactitious-fake-news-game.jpg&u=https://www.newsweek.com/sites/www.newsweek.com/files/styles/embed-lg/public/2017/07/04/factitious-fake-news-game.jpg",
-                what: "The game\"s interface mimics the dating app Tinder, which made swiping famous. On a phone, players swipe left when they think the article in front of them is fake, and right when they believe it\"s real. Depending on how you swipe, Factitious provides feedback. Whether your swipe was correct or incorrect, whether the article cites sources that can be checked, whether the story includes direct quotes from credible sources. Stumped? If so, there is a clue. You can click to reveal the article\"s source.  "          
-            }
-        },
-        {
-            name: "Suede",
-            radius: 10,
-            centered: "SWE",
-            country: "SWE",
-            initiative: 1,
-            nbJeu: 1,
-            fillKey: "SWE",
-            date: "2018-02-21",
-            content: {
-                title: "Fakeittomakeitgame",
-                type: "Game",
-                logo: "https://www.fakeittomakeitgame.com/images/wide_game_logo.png ",
-                when: "26.03.2017",
-                where: "Suede",
-                who: "Amanda Warner",
-                url: "https://www.fakeittomakeitgame.com/ ",
-                img: "https://cdn.vox-cdn.com/thumbor/d7GB4mbwEr6OB9K-qAx6kIH8asc=/0x0:1223x582/920x613/filters:focal(303x170:497x364)/cdn.vox-cdn.com/uploads/chorus_image/image/53916251/Screen_Shot_2017_03_27_at_9.33.53_AM.0.png",
-                what: "Become advocates in stemming the spread of misinformation Better distinguish between fake and real news stories and identify when parts of a news story are false or misleading Believe that fake news does exist Understand the financial incentives for creating fake news Understand how fake news is written and distributed appeal to specific emotions (fear, anger, etc.) confirmation bias Identify common techniques used when crafting and distributing fake news, including... partial truths misleading specificity"
-                }
-        },
-        {
-            name: "Canada",
-            radius: 10,
-            centered: "CAN",
-            country: "CAN",
-            initiative: 1,
-            nbJeu: 1,
-            fillKey: "CAN",
-            date: "2018-02-21",
-            content: {
-                title: "Real or Fake",
-                type: "Game",
-                logo: "https://kids.nationalgeographic.com/etc/designs/kids/_jcr_content/home/navbar/logo.ngsversion.5bb419dd.img.png/1399495763637.png",
-                when: "21.02.2018",
-                where: "Canada",
-                who: "National Geographic Kids",
-                url: "https://kids.nationalgeographic.com/videos/real-or-fake/#real_or_fake__ep_1.mp4",
-                img: "https://kids.nationalgeographic.com//content/dam/natgeo/video/mpx/kids/r/re/rea/real-or-fake--ep-1.ngsversion.1538941317586.mp4/jcr:content/renditions/cq5dam.thumbnail.140.100.png ",
-                what: "Quizz en plein air, pour les enfants. Trouver le vrai du faux."
-            }
-        },
-        {
-            name: "Suisse",
-            radius: 10,
-            centered: "CHE",
-            country: "CHE",
-            initiative: 1,
-            nbJeu: 1,
-            fillKey: "CHE",
-            date: "2018-02-21",
-            content: {
-                title: "Bad News",
-                type: "Game",
-                logo: "https://img.itch.zone/aW1hZ2UyL3VzZXIvNDQ4Njk2Lzk1NTQ4NS5wbmc=/original/pHbr6n.png",
-                when: "21.02.2018",
-                where: "Suisse",
-                who: "Golden Sloth Studio",
-                url: "https://goldensloth.itch.io/fakenews",
-                img: "https://img.itch.zone/aW1hZ2UvMjk0NDc1LzE0MzcxMTMucG5n/315x250%23c/JCYCBW.png",
-                what: "Vous êtes un rédacteur en chef et vous devez trier les news qu\"on vous a donné. Vous devez vous fier à votre instinct pour tamponner les articles que vous considérez vrai et ceux que vous considérez faux. Jeux inspirée de tout les articles du journal Le Temps qui sont tous implémenter dans le jeu."
-            }
-        },
-        {
-            name: "Mexique",
-            radius: 10,
-            centered: "MEX",
-            country: "MEX",
-            initiative: 3,
-            nbJeu: 0,
-            fillKey: "MEX",
-            date: "2018-02-21",
-            content: {
-                title: "Video Youtube",
-                type: "Initiative",
-                logo: "",
-                when: "28.03.2018",
-                where: "Mexico",
-                who: "A student movement, #YoSoy132",
-                url: "https://www.youtube.com/watch?v=gI6fE75Bnc4",
-                img: "https://i.ytimg.com/vi/gI6fE75Bnc4/maxresdefault.jpg",
-                what: "A student movement, #YoSoy132, sought to tackle Mexico’s fake news problem. Lou explains its impact, and how politicians and corporate interests have destroyed Mexican media. La corruption des médias et le rôle du gouvernement dans les médias."
-            }
-        }
-    ]
-        , {
-        popupTemplate: function(geo, data) {
-            return '<div class="hoverinfo">' + data.name + ' ' + data.initiative + ' initiative(s) dont '  + data.nbJeu + ' Jeu(x)</div>'
-        }
-        });
+        let that = this;
+        
+        //const width = document.getElementById("container").offsetWidth * 0.7,
+        const width = 900,
+		height = 600,
+		//legendCellSize = 20,
+		// colors = ['#d4eac7', '#c6e3b5', '#b7dda2', '#a9d68f', '#9bcf7d', '#8cc86a', '#7ec157', '#77be4e', '#70ba45', '#65a83e', '#599537', '#4e8230', '#437029', '#385d22', '#2d4a1c', '#223815'];
+        //colors = ['#fee6e8', '#fdb5bb', '#fb838d', '#fa5260', '#f82032', '#df0719', '#ad0513', '#7c040e', '#4a0208', '#190103'];
+        //colors = ['#f8e6ff', '#e9b3ff', '#db80ff', '#cc4dff', '#be1aff', '#a400e6', '#8000b3', '#5b0080', '#37004d', '#12001a'];
+        colors = ['#b3ffff', '#80ffff', '#4dffff', '#1affff', '#00e6e6', '#00b3b3', '#008080', '#004d4d', '#003333'];
 
-        for( var i = 0; i <= this.map.bubbles.length+2; i++ ){
-            document.getElementsByTagName("circle")[i].addEventListener('click', function(bubble) {
-                var initJson = JSON.parse(bubble.srcElement.dataset.info);
-                var initData = initJson.content;
-                console.log(bubble.srcElement.dataset.info);
-                console.log(initData);
-                that.setState({ data: initData });
-                console.log(this.setState);
+
+        /*
+        var zoom = d3.behavior.zoom()
+            .translate([0, 0])
+            .scale(1)
+            .scaleExtent([1, 8])
+            .on("zoom", zoomed);
+        */
+
+        const svg = d3.select('#svgContainer').append("svg") //Map
+            .attr("id", "svg")
+            //.attr("width", width)
+            //.attr("height", height)
+            .attr("class", "svg");
+            /*
+            //.call(zoom);
+            .call(d3.zoom().on("zoom", function () {
+                svg.attr("transform", d3.event.transform)
+            }));
+            */
+
+
+        // Define projection property
+        const projection = d3.geoNaturalEarth1()
+        .scale(.4)
+        .center([-75.25, 49,45])
+        //.fitExtent([[20, 20], [940, 1180]], land);
+        .translate([0, 0]);
+        
+        // And a path linked to it
+        const path = d3.geoPath()
+            .pointRadius(2)
+            .projection(projection);
+
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 25)
+            .attr("text-anchor", "middle")
+            .style("fill", "#c1d3b8")
+            .style("font-weight", "300")
+            .style("font-size", "16px")
+            .text("Initiatives citoyennes de lutte contre les Fakenews");
+
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 50)
+            .attr("text-anchor", "middle")
+            .style("fill", "#929292") //    
+            .style("font-weight", "200")
+            .style("font-size", "12px")
+            .text("(source : En cours)");
+
+        const cGroup = svg.append("g");
+
+        var promises = [];
+        promises.push(d3.json("./world-countries-no-antartica.json"));
+        promises.push(d3.csv("./dataIC.csv"));
+
+        Promise.all(promises).then(function(values) {
+            const geojson = values[0];
+            const scores = values[1];
+        
+            var b  = path.bounds(geojson),
+                s = .80 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+                t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+    
+            projection
+                .scale(s)
+                .translate(t);
+            
+            cGroup.selectAll("path")
+                .data(geojson.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("id", function(d) {return "code" + d.id; })
+                .attr("class", "country");
+
+            const min = d3.min(scores, function(e) { return +e.score; }),
+                max = d3.max(scores, function(e) { return +e.score; });
+            var quantile = d3.scaleQuantile().domain([min, max])
+                .range(colors);
+
+            var legend = addLegend(colors);
+            var tooltip = addTooltip();
+
+            scores.forEach(function(e,i) {
+                var countryPath = d3.select("#code" + e.code);
+                countryPath
+                    .attr("scorecolor", quantile(+e.score))
+                    .style("fill", function(d) { return quantile(+e.score); })
+                    .on("mouseover", function(d) {
+                        countryPath.style("fill", "#e96767"); // 9966cc
+                        tooltip.style("display", null);
+                        tooltip.select('#tooltip-country')
+                            .text(shortCountryName(e.frenchCountry));
+                        tooltip.select('#tooltip-score')
+                            .text(e.score);
+                        /*legend.select("#cursor")
+                            .attr('transform', 'translate(' + (legendCellSize + 5) + ', ' + (getColorIndex(quantile(+e.score)) * legendCellSize) + ')')
+                            .style("display", null);
+                            */
+                    })
+                    .on("click", function(d) {
+                        countryPath.style("fill", "#e96767"); //9966cc
+                        getScoreByCountry(scores,e.code);                       
+                        // console.log(details);
+                    })
+                    .on("mouseout", function(d) {
+                        countryPath.style("fill", function(d) { return quantile(+e.score); });
+                        tooltip.style("display", "none");
+                        //legend.select("#cursor").style("display", "none");
+                    })
+                    .on("mousemove", function(d) {
+                        var mouse = d3.mouse(this);
+                        tooltip.attr("transform", "translate(" + mouse[0] + "," + (mouse[1] - 75) + ")");
+                    });
+            });
+
+        });// End Promise
+
+        function shortCountryName(country) {
+            return country.replace("Démocratique", "Dem.").replace("République", "Rep.");
+        }
+
+        function addLegend(colors) {
+            // console.log("legende en bas à droite");
+            
+            var legendCellSize = 20;
+            var xVal = 20 * legendCellSize;
+            var yVal = height - 200;
+            var xParam = function(d) { return 300 + d * legendCellSize; };
+            var xParam2 = function(d) { return 330 + d * legendCellSize; };
+            //console.log("xParam" + xParam );
+
+            var legend = svg.append('g')
+            .attr('transform', 'translate(50, 600)')
+            .attr('id', 'legend');
+			
+		legend.selectAll()
+			.data(d3.range(colors.length))
+			.enter().append('svg:rect')
+				.attr('height', legendCellSize + 'px')
+				.attr('width', legendCellSize + 'px')
+				.attr('x', function(d) { return d*20; })
+				.attr('y', -30)
+				.attr('class', 'legend-cell')
+				.style("fill", function(d) { return colors[d]; })
+				.on("mouseover", function(d) {
+					legend.select("#cursor")
+						//.attr('transform', 'translate(' + (legendCellSize + 5) + ', ' + (d * legendCellSize) + ')')
+						//.style("display", null);
+					d3.selectAll("path[scorecolor='" + colors[d] + "']")
+						.style('fill', "#9966cc");
+				})
+				.on("mouseout", function(d) {
+					legend.select("#cursor")
+						.style("display", "none");
+					d3.selectAll("path[scorecolor='" + colors[d] + "']")
+						.style('fill', colors[d]);
+				});
+			
+                legend.append('svg:rect')
+                    .attr('y', 50)
+                    .attr('height', legendCellSize + 'px')
+                    .attr('width', legendCellSize + 'px')
+                    .attr('x', xParam)
+                    .style("fill", "#999");
+                    
+                legend.append("text")
+                    .attr("x", 20)
+                    .attr("y", 68)
+                    .style("font-size", "13px")
+                    .style("color", "#929292")
+                    .style("fill", "#929292")
+                    .text("données manquantes");
                 
-            })
+                
+                legend.append("polyline")
+                    .attr("points", legendCellSize + ",0 " + legendCellSize + "," + legendCellSize + " " + (legendCellSize * 0.2) + "," + (legendCellSize / 2))
+                    .attr("id", "cursor")
+                    .style("display", "none")
+                    .style('fill', "#9966cc");
+                    
+                        
+                var legendScale = d3.scaleLinear().domain([0, 20]) // min, max
+                    .range([0, colors.length * legendCellSize]);
+
+                var legendAxis = legend.append("g")
+                    //.attr("class", "axis")
+                    .attr("y", 50)
+                    //.attr('x', xParam)
+                    .call(d3.axisBottom(legendScale))
+
+           /*
+            var xVal = width - 300;
+            var yVal = height - 200;
+            var legend = svg.append('g')
+            .attr('transform', 'translate(40, 50)');
+
+            legend.append('svg:rect')
+			.attr('y', yVal)
+			.attr('height', '20px')
+			.attr('width', '200px')
+            .attr('x', xVal)
+            //.attr("xlink:href", "./gradient.png");
+            .style("fill", function(d) { return colors[d]; });
+            
+            //.attr("class", "legend");
+			//.style("fill", "#999");
+			
+            legend.append("text")
+                .attr("x", xVal)
+                .attr("y", (yVal -10))
+                .style("font-size", "13px")
+                .style("color", "#929292")
+                .style("fill", "#929292")
+                .text("Initiatives citoyennes");
+
+            var legendScale =  d3.scaleLinear()
+            .domain([0, 20]) //min, max
+            .range([0, 200]);
+        
+            legend.append("g")
+                .attr("class", "axis")
+                .attr('transform', 'translate('+ xVal +', ' + (yVal + 25) +')')
+                .call(d3.axisBottom(legendScale));
+            */
+
+        return legend;
+        
         };
 
+        function getScoreByCountry(scores, countryCode){
+            let detailsByCountry =[];
+            let j = 0;
+            scores.forEach(function(e,i) {
+                if ( e.code === countryCode){
+                    detailsByCountry[j] = e;
+                    j++;
+                }
+            });
+            that.setState({ data: detailsByCountry[0]
+                        ,  detailsByCountry: detailsByCountry});
+        };
+        function addTooltip() {
+            var tooltip = svg.append("g") // Group for the whole tooltip
+                .attr("id", "tooltip")
+                .style("display", "none");
+            
+            tooltip.append("polyline") // The rectangle containing the text, it is 210px width and 60 height
+                .attr("points","0,0 210,0 210,60 0,60 0,0")
+                .style("fill", "#222b1d") // 
+                .style("stroke","black")
+                .style("opacity","0.9")
+                .style("stroke-width","1")
+                .style("padding", "1em");
+            
+            tooltip.append("line") // A line inserted between country name and score
+                .attr("x1", 40)
+                .attr("y1", 25)
+                .attr("x2", 160)
+                .attr("y2", 25)
+                .style("stroke","#929292")
+                .style("stroke-width","0.5")
+                .attr("transform", "translate(0, 5)");
+            
+            var text = tooltip.append("text") // Text that will contain all tspan (used for multilines)
+                .style("font-size", "13px")
+                .style("fill", "#c1d3b8")
+                .attr("transform", "translate(0, 20)");
+            
+            text.append("tspan") // Country name udpated by its id
+                .attr("x", 105) // ie, tooltip width / 2
+                .attr("y", 0)
+                .attr("id", "tooltip-country")
+                .attr("text-anchor", "middle")
+                .style("font-weight", "600")
+                .style("font-size", "16px");
+            
+            text.append("tspan") // Fixed text
+                .attr("x", 105) // ie, tooltip width / 2
+                .attr("y", 30)
+                .attr("text-anchor", "middle")
+                .style("fill", "929292")
+                .text("Score : ");
+            
+            text.append("tspan") // Score udpated by its id
+                .attr("id", "tooltip-score")
+                .style("fill","#c1d3b8")
+                .style("font-weight", "bold");
+            
+            return tooltip;
+        };
+ 
+    }
+    
+    next() {
+        var indice = this.state.indiceInit;
+        indice++;
+        var countryToSend = this.state.detailsByCountry;
+        var nbInit = countryToSend.length;
+        if ( indice >= nbInit) {
+            indice = 0;
+        }
+        console.log(" nbInit" + nbInit);
+        console.log(" indice" + indice);
+        //console.log(countryToSend[indice]);
+        this.setState({ data: countryToSend[indice] });
+        this.setState({ indiceInit: indice });
     }
 
-    componentWillUnmount() {
-    }
-  
-  
+    getDetailsData() {
+        var details = {};
+        // details['data'] = this.state.data;
+        // details['next'] = this.next;
+        // return details;
+    }   
+
     render() {
-      return <div>
-                <p className="arrow-top"><a href="#section1"><img src={wdscroll_bas} alt="arrow_top" /></a></p>
-                <Details {...this.state}/>
-                <p className="arrow-right"><a href="#section-mapping"><img src={wdscroll_bas} alt="arrow_right" /></a></p>
-            </div>
-    }
+    return <div id="Map">
+            <Details data={ this.state.data } next={ this.next } />
+            <div id="svgContainer"></div>
+           </div>
   }
-  
-  export default Map;
+}
+
+export default Map;

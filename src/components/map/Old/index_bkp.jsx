@@ -1,4 +1,81 @@
- [{
+import './style.css';
+import React from 'react';
+import Datamap from '../../../node_modules/datamaps/dist/datamaps.world.min.js';
+import Details from './details.jsx';
+import wdscroll_bas from './wdscroll_bas.svg';
+
+class Map extends React.Component {
+    constructor(props) {
+      super(props);
+      this.map = {};
+      this.state = { data: {} };
+    }
+    
+    componentDidMount() {
+       var that = this;
+       this.map = new Datamap({
+        element: document.getElementById("container"),
+        // responsive: true,
+        geographyConfig: {
+            popupOnHover: false,
+            highlightOnHover: false,
+            borderColor: '#000000',
+            borderWidth: 0.5
+        },
+        fills: {
+            defaultFill: '#354D4A', 
+            RUS: '#E6BE8A',
+            gt50: '#E14972',
+            eq50: '#4647B9',
+            lt25: '#E6BE8A',
+            gt75: '#E6BE8A',
+            lt50: '#E6BE8A',
+            eq0: '#E6BE8A',
+            gt500: '#E6BE8A'
+        },
+        data: {
+            'NLD': { fillKey: 'eq50' },
+            'FRA': { fillKey: 'eq50' },
+            'USA': { fillKey: 'eq50' },
+            'SWE': { fillKey: 'eq50' },
+            'CAN': { fillKey: 'eq50' },
+            'CHE': { fillKey: 'eq50' },
+            'MEX': { fillKey: 'eq50' },
+          },
+        bubblesConfig: {
+            borderWidth: 0.5,
+            borderOpacity: 1,
+            borderColor: '#FFFFFF'
+        }
+        });
+        var dataIniti = JSON.stringify(getDataFromJson());
+        var response = {};
+        var responseJson = {};
+/*
+        function getDataFromJson() {
+            return fetch('./init-citoy.json')
+              .then((response) => response.json())
+              .then((responseJson) => {
+                return responseJson;
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          };
+*/
+        async function getDataFromJson() {
+            try {
+            let response = await fetch(
+                './init-citoy.json'
+            );
+            let responseJson = await response.json();
+            return responseJson;
+            } catch (error) {
+            console.error(error);
+            }
+        }
+        this.map.bubbles(
+            [{
                 name: "France",
                 radius: 30,
                 centered: "ESP",
@@ -117,7 +194,7 @@
                 type: "Game",
                 logo: "https://img.itch.zone/aW1hZ2UyL3VzZXIvNDQ4Njk2Lzk1NTQ4NS5wbmc=/original/pHbr6n.png",
                 when: "21.02.2018",
-                where: "Pays-bas",
+                where: "Suisse",
                 who: "Golden Sloth Studio",
                 url: "https://goldensloth.itch.io/fakenews",
                 img: "https://img.itch.zone/aW1hZ2UvMjk0NDc1LzE0MzcxMTMucG5n/315x250%23c/JCYCBW.png",
@@ -146,3 +223,37 @@
             }
         }
     ]
+        , {
+        popupTemplate: function(geo, data) {
+            return '<div class="hoverinfo">' + data.name + ' ' + data.initiative + ' initiative(s) dont '  + data.nbJeu + ' Jeu(x)</div>'
+        }
+        });
+
+        for( var i = 0; i <= this.map.bubbles.length+2; i++ ){
+            document.getElementsByTagName("circle")[i].addEventListener('click', function(bubble) {
+                var initJson = JSON.parse(bubble.srcElement.dataset.info);
+                var initData = initJson.content;
+                console.log(bubble.srcElement.dataset.info);
+                console.log(initData);
+                that.setState({ data: initData });
+                console.log(this.setState);
+                
+            })
+        };
+
+    }
+
+    componentWillUnmount() {
+    }
+  
+  
+    render() {
+      return <div>
+                <p className="arrow-top"><a href="#section1"><img src={wdscroll_bas} alt="arrow_top" /></a></p>
+                <Details {...this.state}/>
+                <p className="arrow-right"><a href="#section-mapping"><img src={wdscroll_bas} alt="arrow_right" /></a></p>
+            </div>
+    }
+  }
+  
+  export default Map;

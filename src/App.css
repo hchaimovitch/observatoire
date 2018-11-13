@@ -1,3 +1,59 @@
+body {
+  background-color:#f5fae3;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: 100vh;
+  margin-top: 10px;
+}
+
+#introduction {
+  height: 100vh;
+  border: 1px solid #333333;
+}
+#description {
+  height: 100vh;
+  border: 1px solid #333333;
+}
+
+#Map {
+  display: inline-flex;
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid #333333;
+  background-color:black;
+}
+#container {
+  height: 100vh; /* height: 600px; */
+  border: 1px solid #333333;
+  background-color: black;
+  float: left;
+  /* position: relative; */
+  margin-left: 350px;
+}
+
+#analyse {
+  height: 100vh;
+  border: 1px solid #333333;
+}
+#Type {
+  height: 100vh;
+  border: 1px solid #333333;
+}
+
+#benchmark {
+  height: 100vh;
+  border: 1px solid #333333;
+}
+#contentBenchmark {
+  height: 100vh;
+  border: 1px solid #333333;
+}
+#conclusion{
+  height: 100vh;
+  border: 1px solid #333333;
+}
+/*
 .App {
   text-align: center;
 }
@@ -30,3 +86,4 @@
     transform: rotate(360deg);
   }
 }
+*/
