@@ -38,7 +38,6 @@ body {
 }
 #Type {
   height: 100vh;
-  border: 1px solid #333333;
 }
 
 #benchmark {
@@ -46,8 +45,7 @@ body {
   border: 1px solid #333333;
 }
 #contentBenchmark {
-  height: 100vh;
-  border: 1px solid #333333;
+  height: 50vh;
 }
 #conclusion{
   height: 100vh;
